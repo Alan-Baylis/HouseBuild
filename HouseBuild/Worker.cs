@@ -6,28 +6,34 @@ using System.Threading.Tasks;
 
 namespace HouseBuild
 {
-    class Worker:IWorker
+    public class Worker : IWorker
     {
+        public enum positionList { Boss, Worker }
         public string name { get; set; }
         public string position { get; set; }
-        public Worker(string name) : this(name, "Рабочий") { }
-        public Worker(string name, string position)
+
+        public Worker(string name) : this(name, positionList.Worker) { }
+        public Worker(string name, positionList position)
         {
             this.name = name;
-            this.position = position;
+            this.position = position.ToString();
         }
 
-        public void toDoWork(ref List<IPart> listOfWork)
+        public void toDoWork(ref List<PartBuilding> tasks)
         {
-            foreach (var item in listOfWork.Where(l=>!l.isDone))
-            {
-                item.startDate = DateTime.Now;
-                Console.WriteLine(String.Format("Начал работу: {0} в позиции{1}", name, position));
-                Basement basem = new Basement();
-                basem.startBuilding();
-                break;
-            }
-           
+            DateTime lastFisnishDate = DateTime.Now;
+
+            if (tasks.Any(w => w.isDone))
+                lastFisnishDate = tasks.Where(w => w.isDone).Max(m=>m.endDate);
+
+            PartBuilding task = tasks.Where(w => !w.isDone).OrderBy(o => o.priority).Take(1).FirstOrDefault();
+            task.startDate = lastFisnishDate.AddDays(1);
+
+            Console.WriteLine(String.Format("Начал работу {0} ({1}) по строительству {2}", lastFisnishDate, name, task.partName));
+
+            PartBuilding basem = new PartBuilding();
+            basem.startBuilding(ref task);
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace HouseBuild
 {
    public class Building
     {
-
+        
         private Random rand = new Random();
         protected DateTime sDate = new DateTime();
         protected DateTime eDate = new DateTime();
@@ -25,18 +25,18 @@ namespace HouseBuild
         //}
     
 
-        public virtual void startBuilding()
+        public virtual void startBuilding(ref PartBuilding task)
         {
 
-            var countDay = rand.Next(1, 10);
-            int i = 1;
-            while (countDay != i)
-            {
-                Console.Write(" . ");
-                i++;
-                Thread.Sleep(1000);
-            }
-            Console.WriteLine("Finished");
+            //var countDay = rand.Next(1, 10);
+            //int i = 1;
+            //while (countDay != i)
+            //{
+            //    Console.Write(" . ");
+            //    i++;
+            //    Thread.Sleep(1000);
+            //}
+            //Console.WriteLine("Finished");
         }
 
     }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace HouseBuild
 {
-    interface IPart
+    public interface IPart
     {
-        bool isDone { get;}
+        bool isDone { get; set; }
         DateTime startDate { get; set; }
         DateTime endDate { get; set; }
+        string partName { get; set; }
     }
 }

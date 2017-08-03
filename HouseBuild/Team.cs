@@ -9,5 +9,16 @@ namespace HouseBuild
     public class Team
     {
        public static List<Worker> workers = new List<Worker>();
+        Random rnd = new Random();
+        public void StartWork(List<PartBuilding> tasks)
+        {
+            var t = tasks.Any(w => !w.isDone);
+
+            while (tasks.Any(w=>!w.isDone))
+            {
+                workers[rnd.Next(0, workers.Count)].toDoWork(ref tasks);
+
+            }
+        }
     }
 }

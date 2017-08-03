@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace HouseBuild
 {
-    interface IWorker
+    public interface IWorker
     {
         string name { get; set; }
         string position { get; set; }
 
-        void toDoWork();
+        void toDoWork(ref List<PartBuilding> listOfWork);
     }
 }
